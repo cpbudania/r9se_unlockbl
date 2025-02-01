@@ -1,0 +1,9 @@
+For OPPOFindX6Pro, if you haven't yet unlocked the flash, the suggested flashing process is as follows:
+
+1. Turn off Find Your Phone first, log out of your OPPO account, delete the lock screen password, and restore factory settings.
+
+2. In the state of ensuring that the computer can be turned on, use the Omegagen tool to back up the font.
+
+3. Use the OPPOFindX6Pro toolbox to unlock BL and flash TWRP and Root strictly according to the prompts.
+
+4. Don't easily upgrade or downgrade the system. Do not lock BL easily. Since there is no Fastboot mode, many brick rescue operations need to be completed in TWRP, and BL can only be 9008 if it is locked.

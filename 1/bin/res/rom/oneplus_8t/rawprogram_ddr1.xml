@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<data>
+  <program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="xbl_ddr4.elf" label="xbl_a" num_partition_sectors="1280" partofsingleimage="false" physical_partition_number="1" readbackverify="false" size_in_KB="5120.0" sparse="false" start_byte_hex="0x6000" start_sector="6" token="blank" pk="blank" />
+  <program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="xbl_config_ddr4.elf" label="xbl_config_a" num_partition_sectors="32" partofsingleimage="false" physical_partition_number="1" readbackverify="false" size_in_KB="128.0" sparse="false" start_byte_hex="0x506000" start_sector="1286" token="blank" pk="blank" />
+  <program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="imagefv_ddr4.elf" label="imagefv_a" num_partition_sectors="512" partofsingleimage="false" physical_partition_number="4" readbackverify="false" size_in_KB="2048.0" sparse="false" start_byte_hex="0x3157a000" start_sector="202106" token="blank" pk="blank" />
+
+  <program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="xbl_ddr4.elf" label="xbl_b" num_partition_sectors="1280" partofsingleimage="false" physical_partition_number="2" readbackverify="false" size_in_KB="5120.0" sparse="false" start_byte_hex="0x6000" start_sector="6" token="blank" pk="blank" />
+  <program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="xbl_config_ddr4.elf" label="xbl_config_b" num_partition_sectors="32" partofsingleimage="false" physical_partition_number="2" readbackverify="false" size_in_KB="128.0" sparse="false" start_byte_hex="0x506000" start_sector="1286" token="blank" pk="blank" />
+  <program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="imagefv_ddr4.elf" label="imagefv_b" num_partition_sectors="512" partofsingleimage="false" physical_partition_number="4" readbackverify="false" size_in_KB="2048.0" sparse="false" start_byte_hex="0x63cee000" start_sector="408814" token="blank" pk="blank" />
+</data>

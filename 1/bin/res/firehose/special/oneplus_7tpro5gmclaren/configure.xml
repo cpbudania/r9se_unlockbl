@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" ?>
+<data>
+  <configure ZlpAwareHost="1" SkipStorageInit="0" TargetName="8974" SkipWrite="0" AckRawDataEveryNumPackets="100" MaxPayloadSizeToTargetInBytes="524288" MemoryName="ufs" />
+</data>

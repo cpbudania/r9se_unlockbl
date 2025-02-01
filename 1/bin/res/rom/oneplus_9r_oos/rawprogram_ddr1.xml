@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+    <data>
+        <program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="xbl.elf" label="xbl_a" num_partition_sectors="1280" partofsingleimage="false" physical_partition_number="1" readbackverify="false" size_in_KB="5120.0" sparse="false" start_byte_hex="0x6000" start_sector="6" multiImage="true" token="blank" pk="blank" />
+        <program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="xbl_config.elf" label="xbl_config_a" num_partition_sectors="32" partofsingleimage="false" physical_partition_number="1" readbackverify="false" size_in_KB="128.0" sparse="false" start_byte_hex="0x506000" start_sector="1286" multiImage="true" token="blank" pk="blank" />
+
+        <program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="xbl.elf" label="xbl_b" num_partition_sectors="1280" partofsingleimage="false" physical_partition_number="2" readbackverify="false" size_in_KB="5120.0" sparse="false" start_byte_hex="0x6000" start_sector="6" multiImage="false" token="blank" pk="blank" />
+        <program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="xbl_config.elf" label="xbl_config_b" num_partition_sectors="32" partofsingleimage="false" physical_partition_number="2" readbackverify="false" size_in_KB="128.0" sparse="false" start_byte_hex="0x506000" start_sector="1286" multiImage="false" token="blank" pk="blank" />
+    </data>
