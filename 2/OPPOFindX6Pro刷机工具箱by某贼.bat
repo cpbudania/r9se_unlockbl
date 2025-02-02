@@ -1,68 +1,66 @@
-::这是一个主脚本示例,请按照此示例中的启动过程完成脚本的启动.
+:: This is a main script example. Please follow the startup process in this example to complete the script's startup.
 
-::常规准备,请勿改动
+:: General preparation, do not modify
 @ECHO OFF
 chcp 936>nul
 cd /d %~dp0
-if exist bin (cd bin) else (ECHO.找不到bin & goto FATAL)
+if exist bin (cd bin) else (ECHO. Cannot find bin & goto FATAL)
 
-::加载配置,如果有自定义的配置文件也可以加在下面
-if exist conf\fixed.bat (call conf\fixed) else (ECHO.找不到conf\fixed.bat & goto FATAL)
+:: Load configuration. If there is a custom configuration file, it can be added below
+if exist conf\fixed.bat (call conf\fixed) else (ECHO. Cannot find conf\fixed.bat & goto FATAL)
 if exist conf\user.bat call conf\user
 
-::加载主题,请勿改动
+:: Load theme, do not modify
 if "%framwork_theme%"=="" set framwork_theme=default
 call framwork theme %framwork_theme%
 COLOR %c_i%
 
-::自定义窗口大小,可以按照需要改动
-TITLE 工具启动中...
+:: Custom window size, can be modified as needed
+TITLE Tool starting...
 mode con cols=71
 
-::检查和获取管理员权限,如不需要可以去除
-if not exist tool\Windows\gap.exe ECHO.找不到gap.exe & goto FATAL
+:: Check and obtain administrator privileges. Remove if not needed
+if not exist tool\Windows\gap.exe ECHO. Cannot find gap.exe & goto FATAL
 if exist %windir%\System32\bff-test rd %windir%\System32\bff-test 1>nul || start tool\Windows\gap.exe %0 && EXIT || EXIT
 md %windir%\System32\bff-test 1>nul || start tool\Windows\gap.exe %0 && EXIT || EXIT
 rd %windir%\System32\bff-test 1>nul || start tool\Windows\gap.exe %0 && EXIT || EXIT
 
-::启动准备和检查,请勿改动
+:: Startup preparation and check, do not modify
 call framwork startpre
 ::call framwork startpre skiptoolchk
 
-::完成启动.请在下面编写你的脚本
-TITLE [完全免费] OPPOFindX6Pro刷机工具箱 版本:%prog_ver% 作者:酷安@某贼
+:: Startup complete. Please write your script below
+TITLE [Completely Free] OPPOFindX6Pro Flashing Toolbox Version:%prog_ver% Author: CoolApk@Mouzei
 CLS
 goto MENU
-
-
 
 :MENU
 CLS
 ECHO.=--------------------------------------------------------------------=
-ECHO.主菜单
+ECHO. Main Menu
 ECHO.=--------------------------------------------------------------------=
 ECHO.
 ECHO.
-ECHO.【方案来自 酷安@mi搞机爱好者】  脚本作者: 酷安@某贼
-ECHO.本程序完全免费, 禁止倒卖. 刷机自愿, 风险自负, 本程序不会恶意损坏你的设备, 也不为任何可能发生的意外负责.
+ECHO.【Solution from CoolApk@mi DIY Enthusiast】 Script Author: CoolApk@Mouzei
+ECHO. This program is completely free, resale is prohibited. Flashing is voluntary, risks are your own. This program will not maliciously damage your device, nor is it responsible for any accidents that may occur.
 ECHO.
-ECHO.任意状态强制关机重启: 长按电源键和音量加.
-ECHO.进入9008: 关机状态按住音量加减连接电脑.
+ECHO. Force shutdown and restart in any state: Long press the power button and volume up.
+ECHO. Enter 9008: Hold volume up and down while powered off and connect to the computer.
 ECHO.
 ECHO.
-ECHO.0.刷机指导 (初次刷机必看)
-ECHO.1.解锁BL
-ECHO.2.刷入TWRP
-ECHO.3.获取Root
-ECHO.4.欧加真工具箱-9008救砖回读相关功能 (密码:f65u)
-ECHO.5.上锁BL (不建议)
+ECHO.0. Flashing Guide (Must read for first-time flashing)
+ECHO.1. Unlock Bootloader
+ECHO.2. Flash TWRP
+ECHO.3. Get Root
+ECHO.4. Oplus Toolbox - 9008 Rescue and Readback Functions (Password: f65u)
+ECHO.5. Lock Bootloader (Not recommended)
 ECHO.
-ECHO.A.检查更新 (密码:8o8k)
-ECHO.B.刷机资源网盘
-ECHO.C.刷机驱动
-ECHO.D.加入QQ群聊
-ECHO.E.加入云湖群聊
-ECHO.F.关于BFF
+ECHO.A. Check for Updates (Password: 8o8k)
+ECHO.B. Flashing Resource Cloud Drive
+ECHO.C. Flashing Drivers
+ECHO.D. Join QQ Group
+ECHO.E. Join Yunhu Group
+ECHO.F. About BFF
 ECHO.
 call choice common [0][1][2][3][4][5][A][B][C][D][E][F]
 if "%choice%"=="0" call open txt res\guide.txt & goto MENU
@@ -78,75 +76,67 @@ if "%choice%"=="D" start "" "http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=hK2Lya4as
 if "%choice%"=="E" start "" "https://yhfx.jwznb.com/share?key=r7UQXUjyWWda&ts=1695729408" & goto MENU
 if "%choice%"=="F" call open common https://gitee.com/mouzei/bff & goto MENU
 
-
-
-
-
 :ROOT
 CLS
 ECHO.=--------------------------------------------------------------------=
-ECHO.获取Root
+ECHO. Get Root
 ECHO.=--------------------------------------------------------------------=
 ECHO.
 ECHO.
-ECHO.Root是安卓系统的最高权限. 获取Root后就拥有了查看, 修改手机系统的权限.
-ECHO.此功能需要在TWRP下使用. 请先进入TWRP.
+ECHO. Root is the highest privilege on Android. After obtaining Root, you will have the privilege to view and modify the phone's system.
+ECHO. This function requires TWRP. Please enter TWRP first.
 ECHO.
 ECHO.
-ECHO.1.刷入Magisk26.4 (官方面具)
+ECHO.1. Flash Magisk26.4 (Official Magisk)
 ECHO.
-ECHO.2.刷入MagiskDelta26.1 (狐狸面具)
+ECHO.2. Flash MagiskDelta26.1 (Fox Magisk)
 ECHO.
-ECHO.A.刷入自定义Magisk (支持zip或apk)
+ECHO.A. Flash Custom Magisk (Supports zip or apk)
 ECHO.
-ECHO.B.返回主菜单
+ECHO.B. Return to Main Menu
 ECHO.
 call choice common [1][2][A][B]
 if "%choice%"=="1" set target=..\Magisk26.4.apk
 if "%choice%"=="2" set target=..\MagiskDelta26.1.apk
-if "%choice%"=="A" ECHO.请选择Magisk卡刷包或apk... & call sel file s %framwork_workspace%\.. [zip][apk]
+if "%choice%"=="A" ECHO. Please select Magisk flashable zip or apk... & call sel file s %framwork_workspace%\.. [zip][apk]
 if "%choice%"=="A" set target=%sel__file_path%
 if "%choice%"=="B" goto MENU
-ECHO.请进入TWRP... & call chkdev recovery rechk 3
-ECHO.检查槽位... & call slot recovery chk
-ECHO.备份init_boot_%slot__cur%...
+ECHO. Please enter TWRP... & call chkdev recovery rechk 3
+ECHO. Checking slot... & call slot recovery chk
+ECHO. Backing up init_boot_%slot__cur%...
 for /f %%a in ('gettime.exe ^| find "."') do set var=%%a
 call read recovery init_boot_%slot__cur% bak\init_boot\init_boot.img noprompt
 copy /Y bak\init_boot\init_boot.img bak\init_boot\init_boot_%var%.img 1>nul
-ECHO.init_boot_%slot__cur%已经备份到bak\init_boot\init_boot_%var%.img
+ECHO. init_boot_%slot__cur% has been backed up to bak\init_boot\init_boot_%var%.img
 start framwork logviewer start %logfile%
-ECHO.刷入%target%... & call write twrpinst %target%
+ECHO. Flashing %target%... & call write twrpinst %target%
 ECHO.
-ECHO.完成. 脚本无法判断是否成功, 请根据日志或开机自行判断. 如果无法开机, 可以使用自动备份的init_boot恢复. 按任意键返回... & pause>nul & goto MENU
-
+ECHO. Complete. The script cannot determine if it was successful. Please check the log or boot up to verify. If it fails to boot, you can use the automatically backed up init_boot to restore. Press any key to return... & pause>nul & goto MENU
 
 :FLASHTWRP
 CLS
 ECHO.=--------------------------------------------------------------------=
-ECHO.刷入TWRP
+ECHO. Flash TWRP
 ECHO.=--------------------------------------------------------------------=
 ECHO.
 ECHO.
-ECHO.TWRP是一种第三方Recovery模式, 是刷机不可或缺的工具.
+ECHO. TWRP is a third-party recovery mode, an essential tool for flashing.
 ECHO.
 ECHO.
-ECHO.1.刷入TWRP-13-OPlus_SM8550-Color597-V1.1-by_酷安@Col_or
+ECHO.1. Flash TWRP-13-OPlus_SM8550-Color597-V1.1-by_CoolApk@Col_or
 ECHO.
-ECHO.A.刷入自定义Recovery
+ECHO.A. Flash Custom Recovery
 ECHO.
-ECHO.B.下载更多TWRP
+ECHO.B. Download More TWRP
 ECHO.
-ECHO.C.关注和支持 酷安@Col_or
+ECHO.C. Follow and Support CoolApk@Col_or
 ECHO.
-ECHO.D.返回主菜单
+ECHO.D. Return to Main Menu
 ECHO.
 call choice common [1][A][B][C]
-if "%choice%"=="1" set target=%framwork_workspace%\res\TWRP-13-OPlus_SM8550-Color597-V1.1-by_酷安@Col_or
-::if "%choice%"=="2" set target=%framwork_workspace%\res\OrangeFox-R11.1-Unofficial-salami-V2
-::if "%choice%"=="3" set target=%framwork_workspace%\res\TWRP-3.7.0-salami-13-09-23
-::if "%choice%"=="4" set target=%framwork_workspace%\res\小猪TWRP
-if "%choice%"=="A" ECHO.请选择recovery.img... & call sel file s %framwork_workspace%\.. [img]
-if "%choice%"=="A" ECHO.正在准备recovery... & copy /Y %sel__file_path% tmp\recovery.img 1>nul & set target=%framwork_workspace%\tmp
+if "%choice%"=="1" set target=%framwork_workspace%\res\TWRP-13-OPlus_SM8550-Color597-V1.1-by_CoolApk@Col_or
+if "%choice%"=="A" ECHO. Please select recovery.img... & call sel file s %framwork_workspace%\.. [img]
+if "%choice%"=="A" ECHO. Preparing recovery... & copy /Y %sel__file_path% tmp\recovery.img 1>nul & set target=%framwork_workspace%\tmp
 if "%choice%"=="B" call open common https://www.123pan.com/s/8eP9-1WvGA.html & goto FLASHTWRP
 if "%choice%"=="C" (
     call open common "https://www.coolapk.com/feed/49392957?shareKey=YjMyYjNmOGMyYzhkNjUxMjc5NjA~&shareUid=3463951&shareFrom=com.coolapk.market_13.3.4"
@@ -154,221 +144,191 @@ if "%choice%"=="C" (
     call open common https://afdian.net/a/color597
     goto FLASHTWRP)
 if "%choice%"=="D" goto MENU
-ECHO.请进入9008... & call chkdev edl rechk 1
+ECHO. Please enter 9008... & call chkdev edl rechk 1
 call pgem10 sendfh %chkdev__edl__port%
-ECHO.刷入...
+ECHO. Flashing...
 call write edl %chkdev__edl__port% UFS %target% %framwork_workspace%\res\recovery_a.xml
 call write edl %chkdev__edl__port% UFS %target% %framwork_workspace%\res\recovery_b.xml
 copy /Y tool\Android\misc_torecovery.img tmp\misc.img 1>nul
 call write edl %chkdev__edl__port% UFS %framwork_workspace%\tmp %framwork_workspace%\res\misc.xml
 call write edl %chkdev__edl__port% UFS %framwork_workspace%\res %framwork_workspace%\res\reboot.xml
 ECHO.
-ECHO.完成. 如果不开机可以尝试更换Recovery或恢复官方Recovery. 按任意键返回... & pause>nul & goto MENU
-
+ECHO. Complete. If it fails to boot, try changing the recovery or restoring the official recovery. Press any key to return... & pause>nul & goto MENU
 
 :UNLOCKBL
 CLS
 ECHO.=--------------------------------------------------------------------=
-ECHO.解锁BL
+ECHO. Unlock Bootloader
 ECHO.=--------------------------------------------------------------------=
 ECHO.
 ECHO.
-ECHO.解锁BL可能会导致以下问题:
-ECHO.-手机内所有数据被彻底清除
-ECHO.-失去官方保修
-ECHO.-无法使用指纹支付
-ECHO.-TEE可信任硬件环境假死
-ECHO.-Netflix APP只能观看640P清晰度
-ECHO.-小布助手无法绑定航班, 高铁, 快递
-ECHO.-解锁后再上锁是非常危险的行为, 可能导致手机变砖
-ECHO.-...
+ECHO. Unlocking the bootloader may cause the following issues:
+ECHO.- All data on the phone will be completely erased
+ECHO.- Loss of official warranty
+ECHO.- Inability to use fingerprint payment
+ECHO.- TEE trusted hardware environment may become unresponsive
+ECHO.- Netflix APP can only stream at 640P resolution
+ECHO.- Breeno Assistant cannot bind flights, trains, or packages
+ECHO.- Relocking after unlocking is very dangerous and may brick the phone
+ECHO.- ...
 ECHO.
-ECHO.解锁BL前必须做以下准备:
-ECHO.-确认你的手机是OPPOFindX6Pro
-ECHO.-手机关闭查找手机, 退出OPPO账户, 取消锁屏密码
-ECHO.-将手机内所有数据备份到电脑上, 包括照片, 视频, 录音, 聊天记录等
-ECHO.-开启开发者模式, 在开发者选项中开启OEM解锁和USB调试
-ECHO.-准备能传输文件的数据线, 电脑安装刷机驱动
+ECHO. Before unlocking the bootloader, you must prepare the following:
+ECHO.- Confirm your phone is an OPPOFindX6Pro
+ECHO.- Turn off Find My Device, log out of OPPO account, and remove the screen lock password
+ECHO.- Backup all data on the phone to your computer, including photos, videos, recordings, chat history, etc.
+ECHO.- Enable Developer Mode, enable OEM unlocking and USB debugging in Developer Options
+ECHO.- Prepare a data cable that can transfer files, and install the flashing drivers on your computer
 ECHO.
-ECHO.解锁过程中请严格按照提示操作, 无论成功失败都必须走完整个流程, 不要中途退出, 否则后果自负.
+ECHO. During the unlocking process, please follow the prompts strictly. Whether it succeeds or fails, you must complete the entire process. Do not exit midway, or you will bear the consequences.
 ECHO.
 ECHO.
-ECHO.知晓以上说明, 请按任意键开始解锁... & pause>nul
+ECHO. After understanding the above instructions, press any key to start unlocking... & pause>nul
 ECHO.
-ECHO.请开机连接电脑并开启USB调试... & call chkdev system rechk 1
-ECHO.检查设备信息...
+ECHO. Please power on the phone, connect to the computer, and enable USB debugging... & call chkdev system rechk 1
+ECHO. Checking device information...
 call info adb
-if not "%info__adb__product%"=="OP528BL1" ECHOC {%c_e%}你的设备(%info__adb__product%)不是OPPOFindX6Pro(OP528BL1). 本工具只支持OPPOFindX6Pro. {%c_i%}如果你确认机型无误, 请按任意键继续...{%c_i%}{\n}& pause>nul & ECHO.继续...
+if not "%info__adb__product%"=="OP528BL1" ECHOC {%c_e%} Your device (%info__adb__product%) is not an OPPOFindX6Pro (OP528BL1). This tool only supports OPPOFindX6Pro. {%c_i%} If you are sure the model is correct, press any key to continue...{%c_i%}{\n}& pause>nul & ECHO. Continuing...
 call slot system chk
-ECHO.安卓版本: %info__adb__androidver%   当前槽位: %slot__cur%
+ECHO. Android Version: %info__adb__androidver%   Current Slot: %slot__cur%
 ECHO.
-ECHOC {%c_h%}请同时按住手机音量加减, 然后在电脑上按任意键继续. 之后请保持长按直到脚本检测到9008连接再松手...{%c_i%}{\n} & pause>nul
-adb.exe reboot bootloader 1>>%logfile% 2>&1 || ECHOC {%c_e%}重启失败. {%c_h%}按任意键重试...{%c_i%}{\n}&& pause>nul && goto UNLOCKBL
-ECHOC {%c_w%}注意: 即将检查9008连接. 如果10秒内没有检查到连接, 手机没有黑屏, 而是重启开机或重启进入其他模式了, 请关闭本脚本重新打开.{%c_i%}{\n}
+ECHOC {%c_h%} Please hold both volume up and down buttons, then press any key on the computer to continue. Keep holding until the script detects a 9008 connection, then release...{%c_i%}{\n} & pause>nul
+adb.exe reboot bootloader 1>>%logfile% 2>&1 || ECHOC {%c_e%} Reboot failed. {%c_h%} Press any key to retry...{%c_i%}{\n}&& pause>nul && goto UNLOCKBL
+ECHOC {%c_w%} Note: About to check for 9008 connection. If no connection is detected within 10 seconds, and the phone does not go black but instead reboots or enters another mode, please close this script and reopen it.{%c_i%}{\n}
 call chkdev edl rechk 1
-ECHO.(现在你可以松手了)
+ECHO. (You can release the buttons now)
 call pgem10 sendfh %chkdev__edl__port%
-ECHO.备份ocdt...
+ECHO. Backing up ocdt...
 if exist bak\ocdt\oplus del bak\ocdt\oplus 1>nul
 call read edl %chkdev__edl__port% UFS %framwork_workspace%\bak\ocdt %framwork_workspace%\res\ocdt.xml
 for /f %%a in ('gettime.exe ^| find "."') do set var=%%a
 copy /Y bak\ocdt\oplus bak\ocdt\oplus_%var% 1>nul
-ECHO.备份abl_%slot__cur%...
+ECHO. Backing up abl_%slot__cur%...
 if exist bak\abl\abl.elf del bak\abl\abl.elf 1>nul
 call read edl %chkdev__edl__port% UFS %framwork_workspace%\bak\abl %framwork_workspace%\res\abl_%slot__cur%.xml
 for /f %%a in ('gettime.exe ^| find "."') do set var=%%a
 copy /Y bak\abl\abl.elf bak\abl\abl_%var%.elf 1>nul
-ECHO.刷入ocdt... & call write edl %chkdev__edl__port% UFS %framwork_workspace%\res %framwork_workspace%\res\ocdt.xml
-::只有安卓13不刷abl
-if not "%info__adb__androidver%"=="13" ECHO.刷入abl_%slot__cur%... & call write edl %chkdev__edl__port% UFS %framwork_workspace%\res %framwork_workspace%\res\abl_%slot__cur%.xml
-ECHO.重启到Fastboot...
+ECHO. Flashing ocdt... & call write edl %chkdev__edl__port% UFS %framwork_workspace%\res %framwork_workspace%\res\ocdt.xml
+:: Only Android 13 does not flash abl
+if not "%info__adb__androidver%"=="13" ECHO. Flashing abl_%slot__cur%... & call write edl %chkdev__edl__port% UFS %framwork_workspace%\res %framwork_workspace%\res\abl_%slot__cur%.xml
+ECHO. Rebooting to Fastboot...
 call write edl %chkdev__edl__port% UFS %framwork_workspace%\res %framwork_workspace%\res\reboot.xml
 ECHO.
 :UNLOCKBL-1
-ECHOC {%c_h%}请手动检查Fastboot连接. {%c_i%}在进行下一步之前请勿按动手机按键.{%c_i%}{\n}
-ECHO.1.检查Fastboot连接   2.多次检查仍检查不到
+ECHOC {%c_h%} Please manually check Fastboot connection. {%c_i%} Do not press any buttons on the phone before proceeding to the next step.{%c_i%}{\n}
+ECHO.1. Check Fastboot connection   2. Still cannot detect after multiple checks
 call choice common #[1][2]
 ECHO.
-if "%choice%"=="1" fastboot.exe devices 2>&1 | find "fastboot" 1>nul 2>nul || ECHOC {%c_e%}设备未连接或驱动未安装.{%c_i%}{\n}&& goto UNLOCKBL-1
+if "%choice%"=="1" fastboot.exe devices 2>&1 | find "fastboot" 1>nul 2>nul || ECHOC {%c_e%} Device not connected or drivers not installed.{%c_i%}{\n}&& goto UNLOCKBL-1
 if "%choice%"=="2" goto UNLOCKBL-FAILED
 call chkdev fastboot
-ECHO.检查解锁状态... & call info fastboot
-if "%info__fastboot__unlocked%"=="yes" ECHOC {%c_i%}你的设备已解锁BL, 无需重复解锁. 将为你恢复设备. {%c_h%}请参照工具箱文件目录中的文档手动进入9008.{%c_i%}{\n}& goto UNLOCKBL-RECOVER
-ECHO.执行解锁命令... & fastboot.exe flashing unlock 1>>%logfile% 2>&1
+ECHO. Checking unlock status... & call info fastboot
+if "%info__fastboot__unlocked%"=="yes" ECHOC {%c_i%} Your device's bootloader is already unlocked. No need to unlock again. Restoring your device. {%c_h%} Please manually enter 9008 by referring to the document in the toolbox directory.{%c_i%}{\n}& goto UNLOCKBL-RECOVER
+ECHO. Executing unlock command... & fastboot.exe flashing unlock 1>>%logfile% 2>&1
 ECHO.
-ECHOC {%c_h%}现在请按两下音量减选择UNLOCK, 然后按一下电源键确认, 然后立即同时按住音量加减(速度要快), 直到脚本检测到9008连接再松手.{%c_i%}{\n}
-ECHO.如果未能及时按键, 手机将无法自动进入9008. 此时请参照工具箱文件目录中的文档手动进入9008.
+ECHOC {%c_h%} Now press volume down twice to select UNLOCK, then press the power button to confirm, then immediately hold both volume up and down (quickly), until the script detects a 9008 connection, then release.{%c_i%}{\n}
+ECHO. If you fail to press the buttons in time, the phone will not automatically enter 9008. In this case, please manually enter 9008 by referring to the document in the toolbox directory.
 ECHO.
 goto UNLOCKBL-RECOVER
 :UNLOCKBL-FAILED
-ECHOC {%c_e%}解锁BL失败. {%c_i%}将为你恢复手机. 请按提示继续操作. 稍后你可以QQ联系1330250642反馈此问题.{%c_i%}{\n}
-ECHOC {%c_h%}请参照工具箱文件目录中的文档手动进入9008.{%c_i%}{\n}
+ECHOC {%c_e%} Bootloader unlock failed. {%c_i%} Restoring your phone. Please follow the prompts to continue. You can contact 1330250642 on QQ to report this issue later.{%c_i%}{\n}
+ECHOC {%c_h%} Please manually enter 9008 by referring to the document in the toolbox directory.{%c_i%}{\n}
 goto UNLOCKBL-RECOVER
 :UNLOCKBL-RECOVER      
 call chkdev edl rechk 1
 call pgem10 sendfh %chkdev__edl__port%
-ECHO.恢复ocdt... &            call write edl %chkdev__edl__port% UFS %framwork_workspace%\bak\ocdt %framwork_workspace%\res\ocdt.xml
-ECHO.恢复abl_%slot__cur%... & call write edl %chkdev__edl__port% UFS %framwork_workspace%\bak\abl  %framwork_workspace%\res\abl_%slot__cur%.xml
-ECHO.重启到Recovery...
+ECHO. Restoring ocdt... &            call write edl %chkdev__edl__port% UFS %framwork_workspace%\bak\ocdt %framwork_workspace%\res\ocdt.xml
+ECHO. Restoring abl_%slot__cur%... & call write edl %chkdev__edl__port% UFS %framwork_workspace%\bak\abl  %framwork_workspace%\res\abl_%slot__cur%.xml
+ECHO. Rebooting to Recovery...
 copy /Y tool\Android\misc_torecovery.img tmp\misc.img 1>>%logfile% 2>&1
 call write edl %chkdev__edl__port% UFS %framwork_workspace%\tmp %framwork_workspace%\res\misc.xml
 call write edl %chkdev__edl__port% UFS %framwork_workspace%\res %framwork_workspace%\res\reboot.xml
 ECHO.
-ECHO.全部完成. 手机将自动重启到官方Recovery. 请手动清除数据格式化data再开机. 解锁后开机出现或不出现黄色警告都属正常现象. 如果解锁后手机无法开机, 或开机后出现某些问题, 可以尝试进入官方Recovery清除数据恢复出厂再开机. 按任意键返回... & pause>nul & goto MENU
-
+ECHO. All done. The phone will automatically reboot to the official Recovery. Please manually wipe data and format data before booting. After unlocking, it is normal to see or not see a yellow warning on boot. If the phone fails to boot after unlocking, or if certain issues occur after booting, try entering the official Recovery to wipe data and restore factory settings before booting. Press any key to return... & pause>nul & goto MENU
 
 :LOCKBL
 CLS
 ECHO.=--------------------------------------------------------------------=
-ECHO.上锁BL
+ECHO. Lock Bootloader
 ECHO.=--------------------------------------------------------------------=
 ECHO.
 ECHO.
-ECHO.解锁后再上锁是非常危险的行为, 可能导致手机变砖. 除非必要, 否则请勿上锁. 上锁造成的任何问题责任自负.
+ECHO. Relocking after unlocking is very dangerous and may brick the phone. Unless necessary, do not lock. Any issues caused by locking are your responsibility.
 ECHO.
 ECHO.
-ECHO.上锁BL前必须做以下准备:
-ECHO.-确认你的手机是OPPOFindX6Pro
-ECHO.-手机关闭查找手机, 退出OPPO账户, 取消锁屏密码
-ECHO.-将手机内所有数据备份到电脑上, 包括照片, 视频, 录音, 聊天记录等
-ECHO.-完全恢复官方系统 (推荐使用你自己解锁前的字库备份, 没有的话也可以刷一下官方包或者官方升级一下系统)
-ECHO.-准备能传输文件的数据线, 电脑安装刷机驱动
+ECHO. Before locking the bootloader, you must prepare the following:
+ECHO.- Confirm your phone is an OPPOFindX6Pro
+ECHO.- Turn off Find My Device, log out of OPPO account, and remove the screen lock password
+ECHO.- Backup all data on the phone to your computer, including photos, videos, recordings, chat history, etc.
+ECHO.- Fully restore the official system (Recommended to use your own backup before unlocking, or flash the official package or upgrade the system)
+ECHO.- Prepare a data cable that can transfer files, and install the flashing drivers on your computer
 ECHO.
-ECHO.上锁过程中请严格按照提示操作, 无论成功失败都必须走完整个流程, 不要中途退出, 否则后果自负.
+ECHO. During the locking process, please follow the prompts strictly. Whether it succeeds or fails, you must complete the entire process. Do not exit midway, or you will bear the consequences.
 ECHO.
 ECHO.
-ECHO.知晓以上说明, 请按任意键开始上锁... & pause>nul
+ECHO. After understanding the above instructions, press any key to start locking... & pause>nul
 ECHO.
-ECHO.请开机连接电脑并开启USB调试... & call chkdev system rechk 1
-ECHO.检查设备信息...
+ECHO. Please power on the phone, connect to the computer, and enable USB debugging... & call chkdev system rechk 1
+ECHO. Checking device information...
 call info adb
-if not "%info__adb__product%"=="OP528BL1" ECHOC {%c_e%}你的设备(%info__adb__product%)不是OPPOFindX6Pro(OP528BL1). 本工具只支持OPPOFindX6Pro. {%c_i%}如果你确认机型无误, 请按任意键继续...{%c_i%}{\n}& pause>nul & ECHO.继续...
+if not "%info__adb__product%"=="OP528BL1" ECHOC {%c_e%} Your device (%info__adb__product%) is not an OPPOFindX6Pro (OP528BL1). This tool only supports OPPOFindX6Pro. {%c_i%} If you are sure the model is correct, press any key to continue...{%c_i%}{\n}& pause>nul & ECHO. Continuing...
 call slot system chk
-ECHO.安卓版本: %info__adb__androidver%   当前槽位: %slot__cur%
+ECHO. Android Version: %info__adb__androidver%   Current Slot: %slot__cur%
 ECHO.
-ECHOC {%c_h%}请同时按住手机音量加减, 然后在电脑上按任意键继续. 之后请保持长按直到脚本检测到9008连接再松手...{%c_i%}{\n} & pause>nul
-adb.exe reboot bootloader 1>>%logfile% 2>&1 || ECHOC {%c_e%}重启失败. {%c_h%}按任意键重试...{%c_i%}{\n}&& pause>nul && goto LOCKBL
-ECHOC {%c_w%}注意: 即将检查9008连接. 如果10秒内没有检查到连接, 手机没有黑屏, 而是重启开机或重启进入其他模式了, 请关闭本脚本重新打开.{%c_i%}{\n}
+ECHOC {%c_h%} Please hold both volume up and down buttons, then press any key on the computer to continue. Keep holding until the script detects a 9008 connection, then release...{%c_i%}{\n} & pause>nul
+adb.exe reboot bootloader 1>>%logfile% 2>&1 || ECHOC {%c_e%} Reboot failed. {%c_h%} Press any key to retry...{%c_i%}{\n}&& pause>nul && goto LOCKBL
+ECHOC {%c_w%} Note: About to check for 9008 connection. If no connection is detected within 10 seconds, and the phone does not go black but instead reboots or enters another mode, please close this script and reopen it.{%c_i%}{\n}
 call chkdev edl rechk 1
-ECHO.(现在你可以松手了)
+ECHO. (You can release the buttons now)
 call pgem10 sendfh %chkdev__edl__port%
-ECHO.备份ocdt...
+ECHO. Backing up ocdt...
 if exist bak\ocdt\oplus del bak\ocdt\oplus 1>nul
 call read edl %chkdev__edl__port% UFS %framwork_workspace%\bak\ocdt %framwork_workspace%\res\ocdt.xml
 for /f %%a in ('gettime.exe ^| find "."') do set var=%%a
 copy /Y bak\ocdt\oplus bak\ocdt\oplus_%var% 1>nul
-ECHO.备份abl_%slot__cur%...
+ECHO. Backing up abl_%slot__cur%...
 if exist bak\abl\abl.elf del bak\abl\abl.elf 1>nul
 call read edl %chkdev__edl__port% UFS %framwork_workspace%\bak\abl %framwork_workspace%\res\abl_%slot__cur%.xml
 for /f %%a in ('gettime.exe ^| find "."') do set var=%%a
 copy /Y bak\abl\abl.elf bak\abl\abl_%var%.elf 1>nul
-ECHO.刷入ocdt... & call write edl %chkdev__edl__port% UFS %framwork_workspace%\res %framwork_workspace%\res\ocdt.xml
-::只有安卓13不刷abl
-if not "%info__adb__androidver%"=="13" ECHO.刷入abl_%slot__cur%... & call write edl %chkdev__edl__port% UFS %framwork_workspace%\res %framwork_workspace%\res\abl_%slot__cur%.xml
-ECHO.重启到Fastboot...
+ECHO. Flashing ocdt... & call write edl %chkdev__edl__port% UFS %framwork_workspace%\res %framwork_workspace%\res\ocdt.xml
+:: Only Android 13 does not flash abl
+if not "%info__adb__androidver%"=="13" ECHO. Flashing abl_%slot__cur%... & call write edl %chkdev__edl__port% UFS %framwork_workspace%\res %framwork_workspace%\res\abl_%slot__cur%.xml
+ECHO. Rebooting to Fastboot...
 call write edl %chkdev__edl__port% UFS %framwork_workspace%\res %framwork_workspace%\res\reboot.xml
 ECHO.
 :LOCKBL-1
-ECHOC {%c_h%}请手动检查Fastboot连接. {%c_i%}在进行下一步之前请勿按动手机按键.{%c_i%}{\n}
-ECHO.1.检查Fastboot连接   2.多次检查仍检查不到
+ECHOC {%c_h%} Please manually check Fastboot connection. {%c_i%} Do not press any buttons on the phone before proceeding to the next step.{%c_i%}{\n}
+ECHO.1. Check Fastboot connection   2. Still cannot detect after multiple checks
 call choice common #[1][2]
 ECHO.
-if "%choice%"=="1" fastboot.exe devices 2>&1 | find "fastboot" 1>nul 2>nul || ECHOC {%c_e%}设备未连接或驱动未安装.{%c_i%}{\n}&& goto LOCKBL-1
+if "%choice%"=="1" fastboot.exe devices 2>&1 | find "fastboot" 1>nul 2>nul || ECHOC {%c_e%} Device not connected or drivers not installed.{%c_i%}{\n}&& goto LOCKBL-1
 if "%choice%"=="2" goto LOCKBL-FAILED
 call chkdev fastboot
-ECHO.检查BL锁状态... & call info fastboot
-if "%info__fastboot__unlocked%"=="no" ECHOC {%c_i%}你的设备已上锁BL, 无需重复上锁. 将为你恢复设备. {%c_h%}请参照工具箱文件目录中的文档手动进入9008.{%c_i%}{\n}& goto LOCKBL-RECOVER
-ECHO.执行上锁命令... & fastboot.exe flashing lock 1>>%logfile% 2>&1
+ECHO. Checking bootloader lock status... & call info fastboot
+if "%info__fastboot__unlocked%"=="no" ECHOC {%c_i%} Your device's bootloader is already locked. No need to lock again. Restoring your device. {%c_h%} Please manually enter 9008 by referring to the document in the toolbox directory.{%c_i%}{\n}& goto LOCKBL-RECOVER
+ECHO. Executing lock command... & fastboot.exe flashing lock 1>>%logfile% 2>&1
 ECHO.
-ECHOC {%c_h%}现在请按两下音量减选择LOCK, 然后按一下电源键确认, 然后立即同时按住音量加减(速度要快), 直到脚本检测到9008连接再松手.{%c_i%}{\n}
-ECHO.如果未能及时按键, 手机将无法自动进入9008. 此时请参照工具箱文件目录中的文档手动进入9008.
+ECHOC {%c_h%} Now press volume down twice to select LOCK, then press the power button to confirm, then immediately hold both volume up and down (quickly), until the script detects a 9008 connection, then release.{%c_i%}{\n}
+ECHO. If you fail to press the buttons in time, the phone will not automatically enter 9008. In this case, please manually enter 9008 by referring to the document in the toolbox directory.
 ECHO.
 goto LOCKBL-RECOVER
 :LOCKBL-FAILED
-ECHOC {%c_e%}上锁BL失败. {%c_i%}将为你恢复手机. 请按提示继续操作. 稍后你可以QQ联系1330250642反馈此问题.{%c_i%}{\n}
-ECHOC {%c_h%}请参照工具箱文件目录中的文档手动进入9008.{%c_i%}{\n}
+ECHOC {%c_e%} Bootloader lock failed. {%c_i%} Restoring your phone. Please follow the prompts to continue. You can contact 1330250642 on QQ to report this issue later.{%c_i%}{\n}
+ECHOC {%c_h%} Please manually enter 9008 by referring to the document in the toolbox directory.{%c_i%}{\n}
 goto LOCKBL-RECOVER
 :LOCKBL-RECOVER      
 call chkdev edl rechk 1
 call pgem10 sendfh %chkdev__edl__port%
-ECHO.恢复ocdt... &            call write edl %chkdev__edl__port% UFS %framwork_workspace%\bak\ocdt %framwork_workspace%\res\ocdt.xml
-ECHO.恢复abl_%slot__cur%... & call write edl %chkdev__edl__port% UFS %framwork_workspace%\bak\abl  %framwork_workspace%\res\abl_%slot__cur%.xml
-ECHO.重启到Recovery...
+ECHO. Restoring ocdt... &            call write edl %chkdev__edl__port% UFS %framwork_workspace%\bak\ocdt %framwork_workspace%\res\ocdt.xml
+ECHO. Restoring abl_%slot__cur%... & call write edl %chkdev__edl__port% UFS %framwork_workspace%\bak\abl  %framwork_workspace%\res\abl_%slot__cur%.xml
+ECHO. Rebooting to Recovery...
 copy /Y tool\Android\misc_torecovery.img tmp\misc.img 1>>%logfile% 2>&1
 call write edl %chkdev__edl__port% UFS %framwork_workspace%\tmp %framwork_workspace%\res\misc.xml
 call write edl %chkdev__edl__port% UFS %framwork_workspace%\res %framwork_workspace%\res\reboot.xml
 ECHO.
-ECHO.全部完成. 手机将自动重启到官方Recovery. 请手动清除数据格式化data再开机. 如果上锁后手机无法开机, 或开机后出现某些问题, 可以尝试进入官方Recovery清除数据恢复出厂再开机. 按任意键返回... & pause>nul & goto MENU
-
-
-
-
-
-
-
-
-
-
-
-
-
+ECHO. All done. The phone will automatically reboot to the official Recovery. Please manually wipe data and format data before booting. If the phone fails to boot after locking, or if certain issues occur after booting, try entering the official Recovery to wipe data and restore factory settings before booting. Press any key to return... & pause>nul & goto MENU
 
 :FATAL
-ECHO. & if exist tool\Windows\ECHOC.exe (tool\Windows\ECHOC {%c_e%}抱歉, 脚本遇到问题, 无法继续运行. 请查看日志. {%c_h%}按任意键退出...{%c_i%}{\n}& pause>nul & EXIT) else (ECHO.抱歉, 脚本遇到问题, 无法继续运行. 按任意键退出...& pause>nul & EXIT)
+ECHO. & if exist tool\Windows\ECHOC.exe (tool\Windows\ECHOC {%c_e%} Sorry, the script encountered an issue and cannot continue. Please check the log. {%c_h%} Press any key to exit...{%c_i%}{\n}& pause>nul & EXIT) else (ECHO. Sorry, the script encountered an issue and cannot continue. Press any key to exit...& pause>nul & EXIT)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-::弃用
-
-
+:: Deprecated
