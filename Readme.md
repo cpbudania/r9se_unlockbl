@@ -1,4 +1,4 @@
-#prepration and precautionary steps
+# prepration and precautionary steps
 
 1. downgrade your phone to rui 3.0
 2. then update to XXXX
