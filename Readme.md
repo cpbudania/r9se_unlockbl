@@ -13,7 +13,7 @@ basically resetting phone to factory settings is recommended.
 
 firstly open drv.exe which will install all the drivers required throughout the process
 
-#folder 1
+# folder 1
 
 now open the folder 1 and create two folders named as Backup1 and Backup2
 
